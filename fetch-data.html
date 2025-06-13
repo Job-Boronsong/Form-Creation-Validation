@@ -2,21 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Simple Calculator</title>
-    <link rel="stylesheet" href="calculator.css">
+    <title>User Data Display</title>
+    <link rel="stylesheet" href="fetch-data.css">
 </head>
 <body>
-    <div id="calculator-container">
-        <input type="number" id="number1" placeholder="Number 1">
-        <input type="number" id="number2" placeholder="Number 2">
-
-        <button id="add">+</button>
-        <button id="subtract">-</button>
-        <button id="multiply">*</button>
-        <button id="divide">/</button>
-
-        <div id="result">Result: <span id="calculation-result">0</span></div>
+    <div id="content">
+        <h1>User List</h1>
+        <div id="api-data">Loading user data...</div>
     </div>
-    <script src="calculator.js"></script>
+    <script src="fetch-data.js"></script>
 </body>
 </html>
