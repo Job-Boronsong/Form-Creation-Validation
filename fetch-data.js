@@ -1,52 +1,28 @@
-// Arithmetic operation functions
-function add(number1, number2) {
-    return number1 + number2;
-}
+// Define the asynchronous function to fetch user data
+async function fetchUserData() {
+    const apiUrl = 'https://jsonplaceholder.typicode.com/users'; // API URL
+    const dataContainer = document.getElementById('api-data');   // Select container
 
-function subtract(number1, number2) {
-    return number1 - number2;
-}
+    try {
+        const response = await fetch(apiUrl);                    // Fetch data
+        const users = await response.json();                     // Parse JSON
 
-function multiply(number1, number2) {
-    return number1 * number2;
-}
+        dataContainer.innerHTML = '';                            // Clear loading text
 
-function divide(number1, number2) {
-    if (number2 === 0) {
-        return "Cannot divide by zero";
+        const userList = document.createElement('ul');           // Create <ul> element
+
+        users.forEach(user => {
+            const listItem = document.createElement('li');       // Create <li>
+            listItem.textContent = user.name;                    // Set user name
+            userList.appendChild(listItem);                      // Add <li> to <ul>
+        });
+
+        dataContainer.appendChild(userList);                     // Add list to container
+    } catch (error) {
+        dataContainer.innerHTML = '';                            // Clear container
+        dataContainer.textContent = 'Failed to load user data.'; // Show error message
     }
-    return number1 / number2;
 }
 
-// Function to get input values and ensure they are numbers
-function getNumbers() {
-    const number1 = parseFloat(document.getElementById('number1').value) || 0;
-    const number2 = parseFloat(document.getElementById('number2').value) || 0;
-    return { number1, number2 };
-}
-
-// Function to display result
-function displayResult(result) {
-    document.getElementById('calculation-result').textContent = result;
-}
-
-// Event listeners for each button
-document.getElementById('add').addEventListener('click', function() {
-    const { number1, number2 } = getNumbers();
-    displayResult(add(number1, number2));
-});
-
-document.getElementById('subtract').addEventListener('click', function() {
-    const { number1, number2 } = getNumbers();
-    displayResult(subtract(number1, number2));
-});
-
-document.getElementById('multiply').addEventListener('click', function() {
-    const { number1, number2 } = getNumbers();
-    displayResult(multiply(number1, number2));
-});
-
-document.getElementById('divide').addEventListener('click', function() {
-    const { number1, number2 } = getNumbers();
-    displayResult(divide(number1, number2));
-});
+// Run the function after the document has loaded
+document.addEventListener('DOMContentLoaded', fetchUserData);
